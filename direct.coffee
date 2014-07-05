@@ -30,7 +30,7 @@ class DirectCollection
         future.return()
 
     errorHandler = (error) =>
-      future.throw error if error
+      future.throw error if error and not future.isResolved()
 
     callback = Meteor.bindEnvironment callback, errorHandler, @
 
