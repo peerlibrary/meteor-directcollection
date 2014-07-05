@@ -1,10 +1,10 @@
 DirectCollection
 ================
 
-Meteor smart package which provides blocking (using [fibers](https://github.com/laverdet/node-fibers))
-MongoDB API for direct/native access to collections. It wraps native node.js MongoDB API into an
-interface similar to Meteor, but allowing direct access to collections, even if they are not defined
-through Meteor. It reuses Meteor database connection.
+Meteor smart package which provides [blocking](https://github.com/peerlibrary/meteor-blocking) (using
+[fibers](https://github.com/laverdet/node-fibers)) MongoDB API for direct/native access to collections.
+It wraps native node.js MongoDB API into an interface similar to Meteor, but allowing direct access to
+collections, even if they are not defined through Meteor. It reuses Meteor database connection.
 
 It is useful when you want direct access to MongoDB, not bounded by collections defined in Meteor,
 but you are working inside Meteor and would like a similar coding style and access to other Meteor
