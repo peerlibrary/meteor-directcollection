@@ -31,7 +31,7 @@ when inserting documents without `_id` field (default is `Random.id()`).
 
 Available collection methods:
 
-* `findToArray(selector, options)` – return an array of documents
+* `findToArray(selector, options)` – returns an array of documents
 * `findEach(selector, options, eachCallback)` – calls `eachCallback` for each document
 * `count(selector, options)` – returns the count
 * `findOne(selector, options)` – returns one document
