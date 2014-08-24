@@ -66,3 +66,8 @@ class DirectCollection
   remove: (selector) =>
     collection = MongoInternals.defaultRemoteCollectionDriver().mongo._getCollection(@name)
     blocking(collection, collection.remove)(selector, w: 1)
+
+  renameCollection: (newName, options) =>
+    options = {} unless options
+    collection = MongoInternals.defaultRemoteCollectionDriver().mongo._getCollection(@name)
+    blocking(collection, collection.rename)(newName, options)

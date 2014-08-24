@@ -38,6 +38,7 @@ Available collection methods:
 * `insert(document)` – returns document `_id`
 * `update(selector, modifier, options)` – returns number of updated documents
 * `remove(selector)` – returns number of removed documents
+* `renameCollection(newName, options)` – renames the collection
 
 Related projects
 ----------------
