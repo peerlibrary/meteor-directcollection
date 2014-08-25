@@ -40,6 +40,10 @@ Available collection methods:
 * `remove(selector)` – returns number of removed documents
 * `renameCollection(newName, options)` – renames the collection
 
+Available class methods:
+
+* `command(selector, options)` – executes a command against a Meteor database
+
 Related projects
 ----------------
 
