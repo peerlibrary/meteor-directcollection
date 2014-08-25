@@ -3,7 +3,7 @@
   "description": "Blocking MongoDB API for direct/native access to collections",
   "homepage": "https://github.com/peerlibrary/meteor-directcollection",
   "author": "The PeerLibrary Project",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "git": "https://github.com/peerlibrary/meteor-directcollection.git",
   "packages": {
     "blocking": {}
