@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.use(['coffeescript', 'underscore', 'random', 'blocking', 'ejson'], 'server');
+  api.use(['coffeescript', 'underscore', 'random', 'blocking', 'ejson', 'mongo-livedata'], 'server');
 
   api.export('DirectCollection');
 
