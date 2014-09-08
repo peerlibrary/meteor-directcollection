@@ -1,9 +1,13 @@
 Package.describe({
-  summary: "Blocking MongoDB API for direct/native access to collections"
+  summary: "Blocking MongoDB API for direct/native access to collections",
+  version: '0.2.2',
+  name: 'peerlibrary:directcollection',
+  git: 'https://github.com/peerlibrary/meteor-directcollection.git'
 });
 
 Package.on_use(function (api) {
-  api.use(['coffeescript', 'underscore', 'random', 'blocking', 'ejson', 'mongo-livedata'], 'server');
+  api.versionsFrom('METEOR@0.9.1');
+  api.use(['coffeescript', 'underscore', 'random', 'peerlibrary:blocking@0.4.2', 'ejson', 'mongo-livedata'], 'server');
 
   api.export('DirectCollection');
 
@@ -13,7 +17,7 @@ Package.on_use(function (api) {
 });
 
 Package.on_test(function (api) {
-  api.use(['directcollection', 'tinytest', 'test-helpers', 'coffeescript', 'underscore'], 'server');
+  api.use(['peerlibrary:directcollection', 'tinytest', 'test-helpers', 'coffeescript', 'underscore'], 'server');
 
   api.add_files([
     'tests.coffee'
