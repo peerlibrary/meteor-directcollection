@@ -39,6 +39,7 @@ Available collection methods:
 * `update(selector, modifier, options)` – returns number of updated documents
 * `remove(selector)` – returns number of removed documents
 * `renameCollection(newName, options)` – renames the collection
+* `findAndModify(selector, sort, document, options)` – modifies and returns a single document
 
 Available class methods:
 

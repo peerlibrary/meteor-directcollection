@@ -59,7 +59,7 @@ class DirectCollection
 
   update: (selector, modifier, options) =>
     options = {} unless options
-    options.w = 1
+    options.w ?= 1
     collection = @_getCollection()
     blocking(collection, collection.update)(selector, modifier, options)
 
@@ -71,6 +71,12 @@ class DirectCollection
     options = {} unless options
     collection = @_getCollection()
     blocking(collection, collection.rename)(newName, options)
+
+  findAndModify: (selector, sort, document, options) =>
+    options = {} unless options
+    options.w ?= 1
+    collection = @_getCollection()
+    blocking(collection, collection.findAndModify)(selector, sort, document, options)
 
   _getCollection: =>
     MongoInternals.defaultRemoteCollectionDriver().mongo._getCollection @name
