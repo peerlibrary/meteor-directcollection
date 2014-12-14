@@ -1,7 +1,7 @@
 Future = Npm.require 'fibers/future'
 
 class DirectCollection
-  _connections = {}
+  connections = {}
 
   constructor: (@name, @_makeNewID, @_databaseUrl) ->
     unless @_makeNewID
@@ -82,10 +82,10 @@ class DirectCollection
 
   @_getConnection: (databaseUrl) ->
     if databaseUrl?
-      if not _connections[databaseUrl]
-        _connections[databaseUrl] = new MongoInternals.RemoteCollectionDriver databaseUrl, {}
+      if not connections[databaseUrl]
+        connections[databaseUrl] = new MongoInternals.RemoteCollectionDriver databaseUrl, {}
 
-      _connections[databaseUrl]
+      connections[databaseUrl]
     else
       MongoInternals.defaultRemoteCollectionDriver()
 
@@ -94,7 +94,7 @@ class DirectCollection
 
   @_getDb: (databaseUrl) ->
     future = new Future()
-    @constructor._getConnection(databaseUrl).mongo._withDb (db) ->
+    @_getConnection(databaseUrl).mongo._withDb (db) ->
       future.return db
     future.wait()
 
