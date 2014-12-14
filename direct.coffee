@@ -1,7 +1,9 @@
 Future = Npm.require 'fibers/future'
 
 class DirectCollection
-  constructor: (@name, @_makeNewID) ->
+  connections = {}
+
+  constructor: (@name, @_makeNewID, @_databaseUrl) ->
     unless @_makeNewID
       @_makeNewID = -> Random.id()
 
@@ -78,16 +80,25 @@ class DirectCollection
     collection = @_getCollection()
     blocking(collection, collection.findAndModify)(selector, sort, document, options)
 
-  _getCollection: =>
-    MongoInternals.defaultRemoteCollectionDriver().mongo._getCollection @name
+  @_getConnection: (databaseUrl) ->
+    if databaseUrl?
+      if not connections[databaseUrl]
+        connections[databaseUrl] = new MongoInternals.RemoteCollectionDriver databaseUrl, {}
 
-  @_getDb: ->
+      connections[databaseUrl]
+    else
+      MongoInternals.defaultRemoteCollectionDriver()
+
+  _getCollection: =>
+    @constructor._getConnection(@_databaseUrl).mongo._getCollection @name
+
+  @_getDb: (databaseUrl) ->
     future = new Future()
-    MongoInternals.defaultRemoteCollectionDriver().mongo._withDb (db) ->
+    @_getConnection(databaseUrl).mongo._withDb (db) ->
       future.return db
     future.wait()
 
-  @command: (selector, options) ->
+  @command: (selector, options, databaseUrl) ->
     options = {} unless options
-    db = @_getDb()
+    db = @_getDb databaseUrl
     blocking(db, db.command)(selector, options)

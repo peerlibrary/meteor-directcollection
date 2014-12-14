@@ -23,11 +23,12 @@ API
 Create a direct collection:
 
 ```
-var directCollection = new DirectCollection(name, makeNewID);
+var directCollection = new DirectCollection(name, makeNewID, databaseUrl);
 ```
 
-It accepts two arguments, name of MongoDB collection, and function which returns a document ID which will be used
-when inserting documents without `_id` field (default is `Random.id()`).
+It accepts three arguments, name of MongoDB collection, function which returns a document ID which will be used
+when inserting documents without `_id` field (default is `Random.id()`) and an optional database URL that can
+be used for connecting to external databases.
 
 Available collection methods:
 
@@ -43,7 +44,7 @@ Available collection methods:
 
 Available class methods:
 
-* `command(selector, options)` – executes a command against a Meteor database
+* `command(selector, options, databaseUrl)` – executes a command against a Meteor database
 
 Related projects
 ----------------
