@@ -90,3 +90,29 @@ Tinytest.add 'directcollection - basic', (test) ->
 
   test.equal removed, 1
   test.equal testCollection.count({}), 0
+
+Tinytest.add 'directcollection - external db', (test) ->
+  # Obtain current URL
+  mongoUrl = null
+  AppConfig.configurePackage 'mongo-livedata', (config) ->
+    mongoUrl = config.url
+
+  testCollection = new DirectCollection 'foo', null, "#{ mongoUrl }_external"
+
+  # First cleanup
+  testCollection.remove {}
+
+  test.equal testCollection.count({}), 0
+
+  document1 =
+    foo: 'bar1'
+    faa: 'zar'
+  document1._id = testCollection.insert document1
+
+  test.equal testCollection.findOne(_id: document1._id), document1
+  test.equal testCollection.findOne(document1), document1
+
+  # Ensure that insert went to the right database
+  testCollection = new DirectCollection 'foo'
+
+  test.isFalse testCollection.findOne _id: document1._id
