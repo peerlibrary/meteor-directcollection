@@ -1,6 +1,6 @@
 Package.describe({
   summary: "Blocking MongoDB API for direct/native access to collections",
-  version: '0.4.1',
+  version: '0.4.2',
   name: 'peerlibrary:directcollection',
   git: 'https://github.com/peerlibrary/meteor-directcollection.git'
 });
