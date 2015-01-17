@@ -14,7 +14,7 @@ Installation
 ------------
 
 ```
-mrt add directcollection
+meteor add peerlibrary:directcollection
 ```
 
 API
