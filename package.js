@@ -7,7 +7,7 @@ Package.describe({
 
 Package.on_use(function (api) {
   api.versionsFrom('METEOR@1.0.2.1');
-  api.use(['coffeescript', 'underscore', 'random', 'peerlibrary:blocking@0.5.0', 'ejson', 'mongo-livedata'], 'server');
+  api.use(['coffeescript', 'underscore', 'random', 'peerlibrary:blocking@0.5.1', 'ejson', 'mongo-livedata'], 'server');
 
   api.export('DirectCollection');
 
