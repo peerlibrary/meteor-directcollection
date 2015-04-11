@@ -90,13 +90,23 @@ class DirectCollection
       MongoInternals.defaultRemoteCollectionDriver()
 
   _getCollection: =>
-    @constructor._getConnection(@_databaseUrl).mongo._getCollection @name
+    mongo = @constructor._getConnection(@_databaseUrl).mongo
+    if mongo.rawCollection
+      mongo.rawCollection @name
+    else
+      # _getCollection is for Meteor < 1.0.4.
+      mongo._getCollection @name
 
   @_getDb: (databaseUrl) ->
-    future = new Future()
-    @_getConnection(databaseUrl).mongo._withDb (db) ->
-      future.return db
-    future.wait()
+    mongo = @_getConnection(databaseUrl).mongo
+    # _withDb is for Meteor < 1.0.4.
+    if mongo._withDb
+      future = new Future()
+      @_getConnection(databaseUrl).mongo._withDb (db) ->
+        future.return db
+      future.wait()
+    else
+      mongo.db
 
   @command: (selector, options, databaseUrl) ->
     options = {} unless options
