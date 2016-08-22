@@ -63,11 +63,25 @@ class DirectCollection
     options = {} unless options
     options.w ?= 1
     collection = @_getCollection()
-    blocking(collection, collection.update)(selector, modifier, options)
+    result = blocking(collection, collection.update)(selector, modifier, options)
 
-  remove: (selector) =>
+    result = result.result if _.isObject(result) and result.result
+
+    return result if options._returnObject or not _.isObject result
+
+    result.n
+
+  remove: (selector, options) =>
+    options = {} unless options
+    options.w ?= 1
     collection = @_getCollection()
-    blocking(collection, collection.remove)(selector, w: 1)
+    result = blocking(collection, collection.remove)(selector, options)
+
+    result = result.result if _.isObject(result) and result.result
+
+    return result if options._returnObject or not _.isObject result
+
+    result.n
 
   renameCollection: (newName, options) =>
     options = {} unless options
