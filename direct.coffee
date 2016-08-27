@@ -18,27 +18,31 @@ class DirectCollection
       options = {}
     options = {} unless options
 
-    future = new Future()
+    mainFuture = new Future()
+    futures = [mainFuture]
 
     callback = (error, document) =>
       # An error might be thrown from the eachCallback, so we skip the rest
-      return if future.isResolved()
+      return if mainFuture.isResolved()
 
       if error
-        future.throw error
+        mainFuture.throw error
       else if document
-        eachCallback document
+        futures.push Future.task =>
+          eachCallback document
       else
-        future.return()
+        mainFuture.return()
 
     errorHandler = (error) =>
-      future.throw error if error and not future.isResolved()
+      mainFuture.throw error if error and not mainFuture.isResolved()
 
     callback = Meteor.bindEnvironment callback, errorHandler, @
 
     @_getCollection().find(selector, options).each(callback)
 
-    future.wait()
+    while futures.length
+      futures.pop().wait()
+
     return
 
   count: (selector, options) =>
