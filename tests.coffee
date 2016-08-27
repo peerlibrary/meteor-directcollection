@@ -43,6 +43,8 @@ Tinytest.add 'directcollection - basic', (test) ->
   testCollection.findEach {}, (document) ->
     Meteor._nodeCodeMustBeInFiber()
 
+    Meteor._sleepForMs 50
+
     correctOrder++
     if correctOrder is 1
       test.equal document1, document
