@@ -1,6 +1,6 @@
-Future = Npm.require 'fibers/future'
+import Future from 'fibers/future'
 
-class DirectCollection
+export class DirectCollection
   connections = {}
 
   constructor: (@name, @_makeNewID, @_databaseUrl) ->
