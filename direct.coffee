@@ -20,7 +20,7 @@ export class DirectCollection
 
     cursor = @_getCollection().find(selector, options)
 
-    nextObject = blocking(cursor, cursor.nextObject)
+    nextObject = blocking(cursor, cursor.next or cursor.nextObject)
 
     while document = nextObject()
       eachCallback document
