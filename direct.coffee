@@ -80,6 +80,18 @@ export class DirectCollection
     collection = @_getCollection()
     blocking(collection, collection.findAndModify)(selector, sort, document, options)
 
+  createIndex: (fieldOrSpec, options) =>
+    options = {} unless options
+    options.w ?= 1
+    collection = @_getCollection()
+    blocking(collection, collection.createIndex)(fieldOrSpec, options)
+
+  dropIndex: (indexName, options) =>
+    options = {} unless options
+    options.w ?= 1
+    collection = @_getCollection()
+    blocking(collection, collection.dropIndex)(indexName, options)
+
   @_getConnection: (databaseUrl) ->
     if databaseUrl?
       if not connections[databaseUrl]
